@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% block title %}
+Main page
+{% endblock title%}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<div class="card">
+    <div class="card-header">
+        Quote
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Dream big</h5>
+        <p class="card-text">You can get life-changing quote or post one which is able to change someone's life </p>
+        <a href="{% url 'postboard' %}" class="btn btn-primary">Go postboard</a>
+    </div>
+</div>
+
+{% else %}
+<h2 class="span">Welcome to our friendly community!</h2>
+<br><br>
+<a href="{% url 'register'%}"><button class="btn btn-lg btn-outline-success">Sign up</button></a>
+<br>
+<br>
+<a href="{% url 'login' %}"><button class="btn btn-lg btn-outline-danger" type="submit">Sign in</button></a>
+{% endif %}
+{% endblock content %}

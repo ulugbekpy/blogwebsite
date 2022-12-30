@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+<div class="alert alert-success" role="alert">
+    You have been logged out!
+</div>
+
+<div class="border-top pt-3">
+    <small class="text-muted">
+        Would you like to go back? <a href="{% url 'login' %}">Log in again</a>
+    </small>
+</div>
+{% endblock content %}
