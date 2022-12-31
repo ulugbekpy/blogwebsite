@@ -19,11 +19,9 @@ Main page
 </div>
 
 {% else %}
-<h2 class="span">Welcome to our friendly community!</h2>
+<h2 class="span" style="text-align: center;">Welcome to our friendly community!</h2>
 <br><br>
 <a href="{% url 'register'%}"><button class="btn btn-lg btn-outline-success">Sign up</button></a>
-<br>
-<br>
 <a href="{% url 'login' %}"><button class="btn btn-lg btn-outline-danger" type="submit">Sign in</button></a>
 {% endif %}
 {% endblock content %}

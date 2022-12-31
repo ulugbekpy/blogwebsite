@@ -17,7 +17,7 @@ def register(request):
         context = {'form': form}
     return render(request,template_name='users/register.html',context=context)
 
-
+@login_required
 def profile(request):
     render(request,template_name='users/profile.html')
 
