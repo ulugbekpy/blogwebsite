@@ -17,9 +17,12 @@ def register(request):
         context = {'form': form}
     return render(request,template_name='users/register.html',context=context)
 
+def me(request):
+    return render(request,template_name='users/me.html')
+
 @login_required
 def profile(request):
-    render(request,template_name='users/profile.html')
+    return render(request,template_name='users/profile.html')
 
 @login_required
 def chat(request):
