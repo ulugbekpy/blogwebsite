@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from .models import Profile
 
 
 class UserRegisterForm(forms.ModelForm):
@@ -7,7 +8,7 @@ class UserRegisterForm(forms.ModelForm):
     confirm_password=forms.CharField(widget=forms.PasswordInput())
     class Meta:
         model=User
-        fields=('username','email','password')
+        fields=('username','first_name','last_name','email','password')
 
     def clean(self):
         cleaned_data = super(UserRegisterForm, self).clean()
@@ -18,3 +19,17 @@ class UserRegisterForm(forms.ModelForm):
             raise forms.ValidationError(
                 "password and confirm_password does not match"
             )
+
+
+class UserUpdateForm(forms.ModelForm):
+    password=forms.CharField(widget=forms.PasswordInput())
+    confirm_password=forms.CharField(widget=forms.PasswordInput())
+    class Meta:
+        model=User
+        fields=('username','first_name','last_name','email','password')    
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image']

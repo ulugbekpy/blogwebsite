@@ -29,4 +29,17 @@
         </div>
     </div>
 </div>
+
+<div class="my-5 mx-5">
+    <div>
+        <h4>Profile info</h4>
+        <p></p>
+    </div>
+    <form enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        {{u_form.as_p}}
+        {{p_form.as_p}}
+        <button type="submit" class="btn btn-lg btn-outline-success">Update</button>
+    </form>
+</div>
 {% endblock content %}
