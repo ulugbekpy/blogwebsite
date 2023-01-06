@@ -2,8 +2,11 @@
 {% load bootstrap5 %}
 
 {% block content %}
-<h3>What do you want to post?</h3>
-<input type="text" name="" id="">
-<br><br>
-<button class="btn btn-lg btn-outline-info">Send</button>
+<form  method="post">
+    {% csrf_token %}
+    <h3>What do you want to post?</h3>
+    <input type="text">
+    <br><br>
+    <button class="btn btn-lg btn-outline-info">Send</button>
+</form>
 {% endblock content %}

@@ -8,8 +8,8 @@ class UserRegisterForm(forms.ModelForm):
     confirm_password=forms.CharField(widget=forms.PasswordInput())
     class Meta:
         model=User
-        fields=('username','first_name','last_name','email','password')
-
+        fields=('username','first_name','last_name','email')
+    
     def clean(self):
         cleaned_data = super(UserRegisterForm, self).clean()
         password = cleaned_data.get("password")

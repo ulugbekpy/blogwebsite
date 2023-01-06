@@ -45,4 +45,3 @@ def profile(request):
 @login_required
 def chat(request):
     return render(request,'users/postboard.html')
-

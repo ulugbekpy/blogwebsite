@@ -14,7 +14,9 @@
 
     {% if title %}
     <title>
-       Blog -- {{title}}
+       {% block title %}
+       
+       {% endblock title %}
     </title>
     {% else %}
     <title>Django blog</title>
