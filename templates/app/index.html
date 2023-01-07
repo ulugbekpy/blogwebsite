@@ -7,16 +7,21 @@ Main page
 {% block content %}
 
 {% if user.is_authenticated %}
-<div class="card">
-    <div class="card-header">
-        Go to postboard
+{% for post in posts %}
+<div class="card" style="margin: 1cm; padding: 0.5cm; height: 150; width: 500;">
+    <div class="card-img avatar avatar-5xl avatar-profile"><img class="rounded-circle img-thumbnail shadow-sm"
+            src="{{post.author.profile.image.url}}" width="200" alt="Photo of the author" />
     </div>
+    <a href="#"><h6 class="text-muted">{{post.author}}</h6></a>
     <div class="card-body">
-        <h5 class="card-title">Quote</h5>
-        <p class="card-text">You can get life-changing quote or post one which is able to change someone's life </p>
-        <a href="{% url 'postboard' %}" class="btn btn-primary">Go postboard</a>
+        <h5 class="card-title">{{post.title}}</h5>
+        <h6 class="card-subtitle text text-muted">{{post.date_posted | date:"F d,Y"}}</h6><br>
+        <p class="card-text">{{post.content}}</p>
+        <a href="#" class="btn btn-outline-dark"><i class="bi bi-chat-left-text-fill"></i>Leave comment</a>
+        <a href="#" class="btn btn-outline-danger"><i class="bi bi-hand-thumbs-up"></i>Like</a>
     </div>
 </div>
+{% endfor %}
 
 {% else %}
 <style>

@@ -20,13 +20,12 @@ class UserRegisterForm(forms.ModelForm):
                 "password and confirm_password does not match"
             )
 
+        return cleaned_data
 
 class UserUpdateForm(forms.ModelForm):
-    password=forms.CharField(widget=forms.PasswordInput())
-    confirm_password=forms.CharField(widget=forms.PasswordInput())
     class Meta:
         model=User
-        fields=('username','first_name','last_name','email','password')    
+        fields=('username','email')    
 
 
 class ProfileUpdateForm(forms.ModelForm):
