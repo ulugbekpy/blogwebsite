@@ -2,5 +2,40 @@
 {% load bootstrap5 %}
 
 {% block content %}
-Some information about Ulugbek...
+<div class="card mb-3">
+    <div class="card-header position-relative min-vh-25 mb-7">
+        <div class="bg-holder rounded-3 rounded-bottom-0" style="background-image:url(../../assets/img/generic/4.jpg);">
+        </div>
+        <!--/.bg-holder-->
+
+        <div class="avatar avatar-5xl avatar-profile"><img class="rounded-circle img-thumbnail shadow-sm"
+                src="/media/profilepics/ME.jpg" width="200" alt="" />
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-8">
+                <h4 class="mb-1"><i class="bi bi-person-circle"></i> Tojimakhammatov Ulug'bek<span data-bs-toggle="tooltip" data-bs-placement="right"
+                        title="Verified"><small class="fa fa-check-circle text-primary"
+                            data-fa-transform="shrink-4 down-2"></small></span>
+                </h4>
+                <h6 class="text-muted"><i class="bi bi-envelope-at"></i> tojimaxammatovulugbek@gmail.com</h6>
+                <p class="text-500"><i class="bi bi-wrench-adjustable-circle"></i>Builder of this site. Python back-end developer. Able to build websites with Django.</p>
+                <hr>
+                <h6><i class="bi bi-search"></i>You can find me here ...</h6><br>
+                <a href="https://github.com/ulugbekpy/"><button class="btn btn-outline-dark" type="button"><i class="bi bi-github"></i>
+                        Github</button>
+                </a><br><br>
+                <a href="https://gitlab.com/ulugbekpy"><button class="btn btn-outline-danger" type="button"><i
+                            class="bi bi-git"></i>Gitlab</button>
+                </a><br><br>
+                <a href="https://www.instagram.com/tojimakhammatov_ulugbek/"><button class="btn btn-outline-danger" type="button"><i class="bi bi-instagram"></i> Instagram</button>
+                </a><br><br>
+                <a href="https://t.me/tojimakhammatov_ulugbek"><button class="btn btn-outline-info" type="button"><i class="bi bi-telegram"></i> Telegram</button>
+                </a>
+                <div class="border-dashed-bottom my-4 d-lg-none"></div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}
