@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% block title %}
+Main page
+{% endblock title%}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+{% for post in posts %}
+<div class="card" style="margin: 1cm; padding: 0.5cm; height: 150; width: 500;">
+    <div class="card-img avatar avatar-5xl avatar-profile"><img class="rounded-circle img-thumbnail shadow-sm"
+            src="{{post.author.profile.image.url}}" width="200" alt="Photo of the author" />
+    </div>
+    <h6 class="text-muted">{{post.author.profile}}</h6>
+    <div class="card-body">
+        <a href="{% url 'post-detail' post.id %}"><h5 class="card-title">{{post.title}}</h5>
+</a>
+        <h6 class="card-subtitle text text-muted">{{post.date_posted}}</h6><br>
+        <p class="card-text">{{post.content}}</p>
+        <a href="#" class="btn btn-outline-dark"><i class="bi bi-chat-left-text-fill"></i>Leave comment</a>
+        <a href="#" class="btn btn-outline-danger"><i class="bi bi-hand-thumbs-up"></i>Like</a>
+    </div>
+</div>
+{% endfor %}
+
+{% else %}
+<div class="my-5 mx-5">
+    <h2 style="text-align: center;">You did not log in yet</h2>
+    <p style="text-align: center;">In order to see this page, please, log in</p>
+</div>
+<br><hr>
+<div class="col text-center my-5">
+    <a href="{% url 'login' %}"><button class="btn btn-lg btn-danger">Log in</button></a>
+</div>
+{% endif %}
+{% endblock content %}

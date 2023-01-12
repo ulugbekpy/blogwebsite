@@ -31,5 +31,4 @@ urlpatterns = [
     path('me/',user_views.me,name='me'),
 
     path('users/profile/',user_views.profile,name='profile'),
-    path('postboard/',user_views.chat,name='postboard'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

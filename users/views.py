@@ -43,7 +43,3 @@ def profile(request):
     }
 
     return render(request,template_name='users/profile.html',context=context)
-
-@login_required
-def chat(request):
-    return render(request,'users/postboard.html')

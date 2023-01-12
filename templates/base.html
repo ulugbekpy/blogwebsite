@@ -38,7 +38,7 @@
                         <a class="nav-link active" aria-current="page" href="{% url 'main-page' %}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'postboard' %}">Postboard</a>
+                        <a class="nav-link" href="{% url 'posts' %}">Posts</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -60,6 +60,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'logout' %}">Log out</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'post-create' %}">Add post</a>
                     </li>
                     {% else %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Sign up</a></li>
