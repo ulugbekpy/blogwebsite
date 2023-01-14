@@ -17,6 +17,15 @@ Main page
         <h6 class="card-subtitle text text-muted">{{object.date_posted}}</h6><br>
         <p class="card-text">{{object.content}}</p>
     </div>
+    <div class="card-footer">
+        {% if object.author == user %}
+        <a href="{% url 'post-update' post.id %}"><button class="btn btn-lg btn-warning">Update</button></a>
+        <a href="{% url 'post-delete' post.id %}"><button class="btn btn-lg btn-danger">Delete</button></a>
+        {% else %}
+        <a href="#" class="btn btn-outline-dark"><i class="bi bi-chat-left-text-fill"></i>Leave comment</a>
+        <a href="#" class="btn btn-outline-danger"><i class="bi bi-hand-thumbs-up"></i>Like</a>
+        {% endif %}
+    </div>
 </div>
 {% else %}
 <div class="my-5 mx-5">

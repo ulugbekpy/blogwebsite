@@ -10,12 +10,14 @@ Main page
         {% csrf_token %}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">
-                Blog post
+                Delete post
             </legend>
-            {{form.as_p}}
+            <h2>Are you sure you want to delete the post {{object.title}}?</h2>
         </fieldset>
         <div class="form-group">
-            <button class="btn btn-outline-success" type="submit">Update</button>
+            <button class="btn btn-outline-danger" type="submit">Delete</button>
+            <a href="{% url 'posts' %}"><button class="btn btn-outline-secondary" type="button">Cancel</button>
+</a>
         </div>
     </form>
 </div>
