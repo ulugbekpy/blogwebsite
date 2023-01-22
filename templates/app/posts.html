@@ -8,7 +8,7 @@ Main page
 
 {% if user.is_authenticated %}
 {% for post in posts %}
-<div class="card" style="margin: 1cm; padding: 0.5cm; height: 150; width: 500;">
+<div class="card" style="margin: 1cm; padding: 0.5cm; height: 150; width: 500;background: rgb(211, 228, 227);">
     <div class="card-img avatar avatar-5xl avatar-profile"><img class="rounded-circle img-thumbnail shadow-sm"
             src="{{post.author.profile.image.url}}" width="200" alt="Photo of the author" />
     </div>
@@ -23,6 +23,30 @@ Main page
     </div>
 </div>
 {% endfor %}
+
+<!-- Pagination -->
+    {% if is_paginated %}
+        <div class="pagination mx-5 my-5">
+            {% for num in page_obj.paginator.page_range %}
+                {% if num == page_obj.number %}
+                    <a class="btn btn-info mb-4" href="?page = {{num}}">{{num}}</a>
+                {% elif page_obj.number > num|add:'-3' and page_obj.number < num|add:'3' %}
+                    <a class="btn btn-outline-info mb-4" href="?page = {{num}}">{{num}}</a>
+                {% endif %}
+            {% endfor %}
+            
+            {% if page_obj.has_previous %}
+                <a class="btn btn-outline-info mb-4" href="?page = 1">First</a>
+                <a class="btn btn-outline-info mb-4" href="?page = {{page_obj.previous_page_number}}">Previous</a>
+            {% endif %}
+            
+            {% if page_obj.has_next %}
+                <a class="btn btn-outline-info mb-4" href="?page = {{page_obj.next_page_number}}">Next</a>
+                <a class="btn btn-outline-info mb-4" href="?page = {{page_obj.paginator.num_pages}}">Last</a>
+            {% endif %}
+        </div>
+
+    {% endif %}
 
 {% else %}
 <div class="my-5 mx-5">

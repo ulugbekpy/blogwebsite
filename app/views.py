@@ -7,7 +7,7 @@ from django.views.generic import (ListView,
                                   DeleteView)
 from .models import Post
 
-# This view is for main page
+
 def mainpage(request):
     posts = Post.objects.all()
     ctx = {'posts':posts}
@@ -16,6 +16,7 @@ def mainpage(request):
 
 class PostListView(ListView):
     model = Post
+    paginate_by = 5
     template_name = 'app/posts.html'
     context_object_name = 'posts'
     ordering = ['-date_posted']
