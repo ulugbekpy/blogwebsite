@@ -50,7 +50,19 @@ Main page
     
 </section>
 <br><br>
-<a href="{% url 'register'%}"><button class="btn btn-lg btn-outline-success">Sign up</button></a>
+<a href="{% url 'register'%}"><button class="btn btn-lg btn-outline-success mx-5">Sign up</button></a>
 <a href="{% url 'login' %}"><button class="btn btn-lg btn-outline-danger" type="submit">Sign in</button></a>
+<div class="row">
+    <p style="text-align: center;" class="text-muted">2022-2023</p>
+</div>
+<footer>
+    <div style="background-color: grey; text-align: center;">
+        <a href="#">About us</a>      <br><br>
+        <a href="#">Terms of privacy</a> <br><br>
+        <a href="#">Explore more</a> <br><br>
+        <a href="#">More services</a> <br><br>
+        <a href="{% url 'login' %}">Start now</a><hr>
+    </div>
+</footer>
 {% endif %}
 {% endblock content %}

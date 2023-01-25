@@ -1,7 +1,12 @@
 from django.shortcuts import render,redirect
+from django.views.generic import ListView
+
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegisterForm,ProfileUpdateForm,UserUpdateForm
 from django.contrib import messages
+
+from .models import Profile
+from .forms import UserRegisterForm,ProfileUpdateForm,UserUpdateForm,PasswordResetForm
 
 # view for registration page
 def register(request):
@@ -43,3 +48,15 @@ def profile(request):
     }
 
     return render(request,template_name='users/profile.html',context=context)
+
+
+class UserListView(LoginRequiredMixin,ListView):
+    model = Profile
+    template_name = 'users/profiles.html'
+    context_object_name = 'profiles'
+    ordering = '-id'
+
+
+def password_reset_view(request):
+    form = PasswordResetForm()
+    

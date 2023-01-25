@@ -32,3 +32,7 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['image']
+
+    
+class PasswordResetForm(forms.Form):
+    email = forms.EmailField()

@@ -23,7 +23,7 @@
                 <p class="text-500">{{user.profile.shortdesc}}</p>
                 <a href="#"><button class="btn btn-outline-danger" type="button">Likes</button>
 </a>
-                <a href="#"><button class="btn btn-outline-info" type="button">Posts</button>
+                <a href="{% url 'user-posts' user.username %}"><button class="btn btn-outline-info" type="button">Posts</button>
 </a>
                 <div class="border-dashed-bottom my-4 d-lg-none"></div>
             </div>
