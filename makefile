@@ -9,3 +9,6 @@ run:
 
 git:
 	git push origin main
+
+super:
+	python manage.py createsuperuser
