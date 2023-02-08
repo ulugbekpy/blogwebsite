@@ -18,7 +18,7 @@ Main page
         <h6 class="card-subtitle text text-muted">{{post.date_posted}}</h6><br>
         <p class="card-text">{{post.content}}</p>
         <a href="#" class="btn btn-outline-dark"><i class="bi bi-chat-left-text-fill"></i>Leave comment</a>
-        <a href="#" class="btn btn-outline-danger"><i class="bi bi-hand-thumbs-up"></i>Like</a>
+        <a href="{% url 'like-one' post.id %}" class="btn btn-outline-danger"><i class="bi bi-hand-thumbs-up"></i>Like {{post.likes}}</a>
     </div>
 </div>
 {% endfor %}

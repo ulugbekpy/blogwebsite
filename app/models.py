@@ -8,7 +8,8 @@ class Post(models.Model):
     title = models.CharField(max_length=155)
     content = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
-    author = models.ForeignKey(User,on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    likes = models.IntegerField(default=0)
 
     class Meta:
         verbose_name = 'Sent post'
@@ -16,6 +17,5 @@ class Post(models.Model):
     def __str__(self) -> str:
         return self.title
 
-    
     def get_absolute_url(self):
         return reverse_lazy('posts')
