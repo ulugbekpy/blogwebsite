@@ -24,8 +24,8 @@ def register(request):
             return redirect('login')
     else:
         form = UserRegisterForm()
-        context = {'form': form}
-    return render(request, template_name='users/register.html', context=context)
+
+    return render(request, template_name='users/register.html', context={'form': form})
 
 
 def me(request):
