@@ -19,3 +19,14 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse_lazy('posts')
+
+
+class Comment(models.Model):
+    text = models.TextField()
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    sender = models.ForeignKey(User, on_delete=models.PROTECT)
+    date_sent = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self) -> str:
+        return self.sender

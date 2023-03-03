@@ -3,29 +3,27 @@ from django.contrib.auth.models import User
 from .models import Profile
 
 
-class UserRegisterForm(forms.ModelForm):
-    password=forms.CharField(widget=forms.PasswordInput())
-    confirm_password=forms.CharField(widget=forms.PasswordInput())
-    class Meta:
-        model=User
-        fields=('username','first_name','last_name','email')
-    
+class UserRegisterForm1(forms.Form):
+    first_name = forms.CharField(max_length=255)
+    last_name = forms.CharField(max_length=255)
+    email = forms.EmailField(max_length=100)
+
+
+class UserRegisterForm2(forms.Form):
+    username = forms.CharField(max_length=50)
+    password = forms.PasswordInput()
+    password1 = forms.PasswordInput()
+
     def clean(self):
-        cleaned_data = super(UserRegisterForm, self).clean()
-        password = cleaned_data.get("password")
-        confirm_password = cleaned_data.get("confirm_password")
+        if 'password1' in self.cleaned_data and 'password' in self.cleaned_data and self.cleaned_data['password'] != self.cleaned_data['password1']:
+            raise forms.ValidationError("The password does not match ")
+        return self.cleaned_data
 
-        if password != confirm_password:
-            raise forms.ValidationError(
-                "password and confirm_password does not match"
-            )
-
-        return cleaned_data
 
 class UserUpdateForm(forms.ModelForm):
     class Meta:
-        model=User
-        fields=('username','email')    
+        model = User
+        fields = ('username', 'email')
 
 
 class ProfileUpdateForm(forms.ModelForm):
@@ -33,6 +31,6 @@ class ProfileUpdateForm(forms.ModelForm):
         model = Profile
         fields = ['image']
 
-    
+
 class PasswordResetForm(forms.Form):
     email = forms.EmailField()

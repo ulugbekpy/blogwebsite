@@ -1,31 +1,60 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView
+from django.urls import reverse_lazy
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from .models import Profile, Post
-from .forms import UserRegisterForm, ProfileUpdateForm, UserUpdateForm, PasswordResetForm
+from django.contrib.auth.models import User
+from .forms import (UserRegisterForm1, UserRegisterForm2,
+                    ProfileUpdateForm, UserUpdateForm,
+                    PasswordResetForm)
 
-# view for registration page
 
-
-def register(request):
+def register1(request):
     if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
+        form = UserRegisterForm1(request.POST)
+        if form.is_valid():
+            request.session['fn'] = form.cleaned_data['fn']
+            return HttpResponseRedirect(reverse_lazy('step2'))
+
+    form = UserRegisterForm1()
+    return render(request, 'register1.html', context={'form': form})
+
+
+def register2(request):
+    if request.method == 'POST':
+        form = UserRegisterForm2(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            username = form.cleaned_data.get('username')
-            user.set_password(form.cleaned_data['password'])
+            user.username = form.cleaned_data['username']
+            user = User.objects.create(
+                fn=request.session['fn'], username=form.changed_data['username'])
+            user.set_password[form.cleaned_data['password']]
             user.save()
             messages.success(
-                request, f"Registration have been successfully completed for {username}!")
-            return redirect('login')
-    else:
-        form = UserRegisterForm()
+                request, f"Registration successfully finished for {user.username} !")
+            return HttpResponseRedirect(reverse_lazy('login'))
 
-    return render(request, template_name='users/register.html', context={'form': form})
+    form = UserRegisterForm2()
+    return render(request, template_name='register2.html', context={'form': form})
+# def register(request):
+#     if request.method == 'POST':
+#         form = UserRegisterForm(request.POST)
+#         if form.is_valid():
+#             user = form.save(commit=False)
+#             username = form.cleaned_data.get('username')
+#             user.set_password(form.cleaned_data['password'])
+#             user.save()
+#             messages.success(
+#                 request, f"Registration have been successfully completed for {username}!")
+#             return redirect('login')
+#     else:
+#         form = UserRegisterForm()
+
+#     return render(request, template_name='users/register.html', context={'form': form})
 
 
 def me(request):
