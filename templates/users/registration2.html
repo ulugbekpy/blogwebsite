@@ -1,0 +1,9 @@
+{% extends 'base.html' %} {% load bootstrap5 %} {% block content %}
+<form method="post">
+  {%csrf_token%}
+  <div class="content-section my-5 mx-5">
+    {{form.as_p}}
+    <button type="submit" class="btn btn-primary">Finish</button>
+  </div>
+</form>
+{% endblock content %}

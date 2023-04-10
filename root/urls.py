@@ -9,10 +9,14 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('app.urls')),
 
-    path('register1/', user_views.register1, name='register'),
-    path('register2/', user_views.register2, name='step2'),
-    path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
+    path('register1/', user_views.registration1, name='register'),
+    path('register2/', user_views.registration2, name='step2'),
+    path('login/',
+         auth_views.LoginView.as_view(template_name='users/login.html'),
+         name='login'),
+    path('logout/',
+         auth_views.LogoutView.as_view(template_name='users/logout.html'),
+         name='logout'),
 
     path('password-reset/',
          auth_views.PasswordResetView.as_view(

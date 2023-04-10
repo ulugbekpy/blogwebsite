@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # added apps
     'app',
     'users',
+    'django_bootstrap5',
     'bootstrap5',
 ]
 

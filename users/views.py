@@ -1,6 +1,5 @@
-from django.shortcuts import render, redirect, HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.views.generic import ListView
-from django.urls import reverse_lazy
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -13,48 +12,36 @@ from .forms import (UserRegisterForm1, UserRegisterForm2,
                     PasswordResetForm)
 
 
-def register1(request):
+def registration1(request):
     if request.method == 'POST':
         form = UserRegisterForm1(request.POST)
         if form.is_valid():
-            request.session['fn'] = form.cleaned_data['fn']
-            return HttpResponseRedirect(reverse_lazy('step2'))
+            request.session['registration_form'] = form.cleaned_data
+            return redirect('step2')
+    else:
+        form = UserRegisterForm1()
+    return render(request, 'users/registration1.html', {'form': form})
 
-    form = UserRegisterForm1()
-    return render(request, 'register1.html', context={'form': form})
 
-
-def register2(request):
+def registration2(request):
     if request.method == 'POST':
         form = UserRegisterForm2(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)
-            user.username = form.cleaned_data['username']
-            user = User.objects.create(
-                fn=request.session['fn'], username=form.changed_data['username'])
-            user.set_password[form.cleaned_data['password']]
+            user = User.objects.create_user(
+                username=request.session['registration_form']['username'],
+                password=request.session['registration_form']['password'],
+                email=request.session['registration_form']['email'],
+                first_name=form.cleaned_data['first_name'],
+                last_name=form.cleaned_data['last_name'],
+            )
+            user.set_password(request.session['registration_form']['password'])
+            user.profile.shortdesc = form.cleaned_data['shortdesc']
             user.save()
-            messages.success(
-                request, f"Registration successfully finished for {user.username} !")
-            return HttpResponseRedirect(reverse_lazy('login'))
-
-    form = UserRegisterForm2()
-    return render(request, template_name='register2.html', context={'form': form})
-# def register(request):
-#     if request.method == 'POST':
-#         form = UserRegisterForm(request.POST)
-#         if form.is_valid():
-#             user = form.save(commit=False)
-#             username = form.cleaned_data.get('username')
-#             user.set_password(form.cleaned_data['password'])
-#             user.save()
-#             messages.success(
-#                 request, f"Registration have been successfully completed for {username}!")
-#             return redirect('login')
-#     else:
-#         form = UserRegisterForm()
-
-#     return render(request, template_name='users/register.html', context={'form': form})
+            return redirect('login')
+    else:
+        form = UserRegisterForm2()
+    return render(request,
+                  template_name='users/registration2.html', context={'form': form})
 
 
 def me(request):
@@ -72,7 +59,7 @@ def profile(request):
             u_form.save()
             p_form.save()
             messages.success(
-                request, f"Your profile info updated successfully!")
+                request, message="Your profile info updated successfully!")
             return redirect('profile')
     else:
         u_form = UserUpdateForm(instance=request.user)
@@ -98,10 +85,5 @@ def password_reset_view(request):
 
 
 def like(request, id):
-    liked = False
     Post.objects.filter(pk=id).first().likes += 1
     return HttpResponse('you liked this post')
-
-
-def unlike(request):
-    liked = True
