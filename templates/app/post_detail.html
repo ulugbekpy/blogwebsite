@@ -1,41 +1,64 @@
-{% extends 'base.html' %}
-{% load bootstrap5 %}
-{% block title %}
-Main page
-{% endblock title%}
-
-{% block content %}
-
+{% extends 'base.html' %} {% load bootstrap5 %} 
+{% block title %} Main page {% endblock title %} 
+{% block content %} 
 {% if user.is_authenticated %}
-<div class="card" style="margin: 1cm; padding: 0.5cm; height: 150; width: 500;background: rgb(206, 221, 221);">
-    <div class="card-img avatar avatar-5xl avatar-profile"><img class="rounded-circle img-thumbnail shadow-sm"
-            src="{{post.author.profile.image.url}}" width="200" alt="Photo of the author" />
-    </div>
-    <h6 class="text-muted">{{object.author.profile}}</h6>
-    <div class="card-body">
-        <h5 class="card-title">{{object.title}}</h5>
-        <h6 class="card-subtitle text text-muted">{{object.date_posted}}</h6><br>
-        <p class="card-text">{{object.content}}</p>
-    </div>
-    <div class="card-footer">
-        {% if object.author == user %}
-        <a href="{% url 'post-update' post.id %}"><button class="btn btn-lg btn-warning">Update</button></a>
-        <a href="{% url 'post-delete' post.id %}"><button class="btn btn-lg btn-danger">Delete</button></a>
-        {% else %}
-        <a href="#" class="btn btn-outline-dark"><i class="bi bi-chat-left-text-fill"></i>Leave comment</a>
-        <a href="#" class="btn btn-outline-danger"><i class="bi bi-hand-thumbs-up"></i>Like</a>
-        {% endif %}
-    </div>
+<div
+  class="card"
+  style="
+    margin: 1cm;
+    padding: 0.5cm;
+    height: 150;
+    width: 500;
+    background: rgb(206, 221, 221);
+  "
+>
+  <div class="card-img avatar avatar-5xl avatar-profile">
+    <img
+      class="rounded-circle img-thumbnail shadow-sm"
+      src="{{post.author.profile.image.url}}"
+      width="200"
+      alt="Photo of the author"
+    />
+  </div>
+  <h6 class="text-muted">{{object.author.profile}}</h6>
+  <div class="card-body">
+    <h5 class="card-title">{{object.title}}</h5>
+    <h6 class="card-subtitle text text-muted">{{object.date_posted}}</h6>
+    <br />
+    <p class="card-text">{{object.content}}</p>
+  </div>
+  <div class="card-footer">
+    <a href="{% url 'post-update' post.id %}">
+        <button class="btn btn-lg btn-warning">Update</button></a>
+    <a href="{% url 'post-delete' post.id %}">
+        <button class="btn btn-lg btn-danger">Delete</button></a>
+    <br><br>
+    <a href="#" class="btn btn-outline-dark"
+      ><i class="bi bi-chat-left-text-fill"></i>Leave comment</a
+    >
+    <form action="{% url 'like_post' post.pk %}" method="post">
+        <button
+        type="submit"
+        name="post_id"
+        value="{{post.id}}"
+        class="btn btn-outline-danger"
+        >
+        <i class="bi bi-hand-thumbs-up"></i>Like {{total_likes}}
+        </button>
+    </form>   
+  </div>
 </div>
 {% else %}
 <div class="my-5 mx-5">
-    <h2 style="text-align: center;">You did not log in yet</h2>
-    <p style="text-align: center;">In order to see this page, please, log in</p>
+  <h2 style="text-align: center">You did not log in yet</h2>
+  <p style="text-align: center">In order to see this page, please, log in</p>
 </div>
-<br>
-<hr>
+<br />
+<hr />
 <div class="col text-center my-5">
-    <a href="{% url 'login' %}"><button class="btn btn-lg btn-danger">Log in</button></a>
+  <a href="{% url 'login' %}"
+    ><button class="btn btn-lg btn-danger">Log in</button></a
+  >
 </div>
-{% endif %}
+{% endif %} 
 {% endblock content %}

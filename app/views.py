@@ -1,3 +1,4 @@
+from typing import Any, Dict
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (ListView,
@@ -6,6 +7,8 @@ from django.views.generic import (ListView,
                                   UpdateView,
                                   DeleteView)
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from .models import Post, Comment
 
 
@@ -46,6 +49,12 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 class PostDetailView(DetailView):
     model = Post
 
+    def get_context_data(self,*args, **kwargs):
+        stuff = get_object_or_404(Post,id=self.kwargs['pk'])
+        total_likes = stuff.total_likes()
+        context = {"total_likes":total_likes}
+        return context
+
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
@@ -71,6 +80,12 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author:
             return True
         return False
+
+
+def like_view(request,pk):
+    post = get_object_or_404(Post,id=request.POST.get('post_id'))
+    post.likes.add(request.user)
+    return HttpResponseRedirect(reverse('posts'))
 
 
 class CommentListView(LoginRequiredMixin, ListView):
